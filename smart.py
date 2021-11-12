@@ -1,5 +1,4 @@
 from tkinter import *
-import tkinter
 import tkinter.ttk as ttk
 
 from pymodbus.client.sync import ModbusSerialClient as ModbusClient
@@ -47,6 +46,10 @@ class App(Tk):
         self.lbl14.grid(column=0, row=3, sticky='w')
         self.lbl15 = Label(self.tab1,text='мест')
         self.lbl15.grid(column=1, row=3)
+
+        self.combobox1 = ttk.Combobox(self.tab1,values = ['COM1','COM2','COM3','COM4','COM5','COM6','COM7','COM8','COM9'])
+        self.combobox1.grid(column=0,row=4)
+        self.combobox1.current(2)
 
         self.tab_control.add(self.tab2,text='Входы')
 
@@ -275,8 +278,8 @@ class App(Tk):
     def show_work_status_A2(self):
 
         self.lbl01['text'] = 'Связь с А2 установлена'
-        self.lbl21['text'] = 'Связь с А2 установлена'
         self.lbl11['text'] = 'Связь с А2 установлена'
+        self.lbl21['text'] = 'Связь с А2 установлена'
         self.lbl01['fg'] = 'green'
         self.lbl11['fg'] = 'green'
         self.lbl21['fg'] = 'green'
@@ -302,7 +305,7 @@ class App(Tk):
         # и получение данных регистров карты
         
         client = ModbusClient(method = 'rtu', 
-                        port = 'com3', 
+                        port = str(self.combobox1.get()), 
                         timeout = 2, 
                         stopbits = 1, 
                         bytesize = 8, 
@@ -389,8 +392,8 @@ class App(Tk):
 
             except:
                 self.ERROR = '[MODBUS] can\'t receive data from A2'
-                self.lbl12['text'] = '[MODBUS] can\'t receive data from A2'
-                self.lbl12['fg'] = 'red'
+                self.lbl11['text'] = '[MODBUS] can\'t receive data from A2'
+                self.lbl11['fg'] = 'red'
 
         if self.ERROR == '':
             try:
@@ -400,8 +403,8 @@ class App(Tk):
                 values.clear()
             except:
                 self.ERROR = '[MODBUS] can\'t send data to A1'
-                self.lbl20['text'] = '[MODBUS] can\'t send data to A1'
-                self.lbl20['fg'] = 'red'
+                self.lbl21['text'] = '[MODBUS] can\'t send data to A1'
+                self.lbl21['fg'] = 'red'
         client.close()
 
         self.lbl22['text'] = status[self.var01.get()]
