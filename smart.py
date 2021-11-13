@@ -312,99 +312,87 @@ class App(Tk):
                         parity = 'N', 
                         baudrate = 115200)
         try:
-            self.ERROR = ''
             client.connect()
             self.show_work_status_A1()
         except:
-            self.ERROR = '[MODBUS]: Can\'t establish connection'
             self.show_error_status_A1()
 
-        if self.ERROR == '':
-            try:
-                ir = client.read_input_registers(address=0,count=22,unit=1)
+        try:
+            ir = client.read_input_registers(address=0,count=22,unit=1)
 
-                self.lbl003['text'] = str(ir.registers[0])
-                self.lbl005['text'] = str(ir.registers[1])
-                self.lbl007['text'] = str(ir.registers[2])
-                self.lbl009['text'] = str(ir.registers[3])
-                self.lbl011['text'] = str(ir.registers[4])
-                self.lbl021['text'] = status[ir.registers[5]]
-                self.lbl023['text'] = status[ir.registers[6]]
-                self.lbl025['text'] = status[ir.registers[7]]
-                self.lbl027['text'] = status[ir.registers[8]]
-                self.lbl029['text'] = status[ir.registers[9]]
-                self.lbl031['text'] = status[ir.registers[10]]
-                self.lbl033['text'] = status[ir.registers[11]]
-                self.lbl035['text'] = status[ir.registers[12]]
-                self.lbl037['text'] = status[ir.registers[13]]
-                self.lbl039['text'] = status[ir.registers[14]]
-                self.lbl041['text'] = status[ir.registers[15]]
-                self.lbl043['text'] = status[ir.registers[16]]
-                self.lbl045['text'] = status[ir.registers[17]]
-                self.lbl047['text'] = status[ir.registers[18]]
-                self.lbl049['text'] = status[ir.registers[19]]
-                self.lbl051['text'] = status[ir.registers[20]]
-                self.lbl13['text'] = manage[ir.registers[21]]
-            except:
-                self.ERROR = '[MODBUS] can\'t receive data from A1'
-                self.lbl00['text'] = '[MODBUS] can\'t receive data from A1'
-                self.lbl00['fg'] = 'red'
+            self.lbl003['text'] = str(ir.registers[0])
+            self.lbl005['text'] = str(ir.registers[1])
+            self.lbl007['text'] = str(ir.registers[2])
+            self.lbl009['text'] = str(ir.registers[3])
+            self.lbl011['text'] = str(ir.registers[4])
+            self.lbl021['text'] = status[ir.registers[5]]
+            self.lbl023['text'] = status[ir.registers[6]]
+            self.lbl025['text'] = status[ir.registers[7]]
+            self.lbl027['text'] = status[ir.registers[8]]
+            self.lbl029['text'] = status[ir.registers[9]]
+            self.lbl031['text'] = status[ir.registers[10]]
+            self.lbl033['text'] = status[ir.registers[11]]
+            self.lbl035['text'] = status[ir.registers[12]]
+            self.lbl037['text'] = status[ir.registers[13]]
+            self.lbl039['text'] = status[ir.registers[14]]
+            self.lbl041['text'] = status[ir.registers[15]]
+            self.lbl043['text'] = status[ir.registers[16]]
+            self.lbl045['text'] = status[ir.registers[17]]
+            self.lbl047['text'] = status[ir.registers[18]]
+            self.lbl049['text'] = status[ir.registers[19]]
+            self.lbl051['text'] = status[ir.registers[20]]
+            self.lbl13['text'] = manage[ir.registers[21]]
+            self.show_work_status_A1()
+        except:
+            self.show_error_status_A1()
         
-        if self.ERROR == '':
-            try:
-                values.append(int(self.var01.get()))
-                values.append(int(self.var02.get()))
-                values.append(int(self.var03.get()))
-                values.append(int(self.var04.get()))
-                values.append(int(self.var05.get()))
-                values.append(int(self.var06.get()))
-                values.append(int(self.var07.get()))
-                values.append(int(self.var08.get()))
-                values.append(int(self.var09.get()))
-                values.append(int(self.var10.get()))
-                client.write_registers(address=0,values=values,unit=1)
-                values.clear()
-            except:
-                self.ERROR = '[MODBUS] can\'t send data to A1'
-                self.lbl20['text'] = '[MODBUS] can\'t send data to A1'
-                self.lbl20['fg'] = 'red'
+        try:
+            values.append(int(self.var01.get()))
+            values.append(int(self.var02.get()))
+            values.append(int(self.var03.get()))
+            values.append(int(self.var04.get()))
+            values.append(int(self.var05.get()))
+            values.append(int(self.var06.get()))
+            values.append(int(self.var07.get()))
+            values.append(int(self.var08.get()))
+            values.append(int(self.var09.get()))
+            values.append(int(self.var10.get()))
+            client.write_registers(address=0,values=values,unit=1)
+            values.clear()
+            self.show_work_status_A1()
+        except:
+            self.show_error_status_A1()
         client.close()
 
         try:
-            self.ERROR = ''
             client.connect()
             self.show_work_status_A2()
         except:
-            self.ERROR = '[MODBUS]: Can\'t establish connection'
             self.show_error_status_A2()
-        if self.ERROR == '':
-            try:
-                ir = client.read_input_registers(address=0,count=14,unit=2)
 
-                self.lbl013['text'] = str(ir.registers[0])
-                self.lbl015['text'] = str(ir.registers[1])
-                self.lbl017['text'] = str(ir.registers[2])
-                self.lbl019['text'] = str(ir.registers[3])
+        try:
+            ir = client.read_input_registers(address=0,count=14,unit=2)
 
-                self.lbl053['text'] = status[ir.registers[11]]
-                self.lbl055['text'] = status[ir.registers[12]]
-                self.lbl15['text'] = manage[ir.registers[13]]
+            self.lbl013['text'] = str(ir.registers[0])
+            self.lbl015['text'] = str(ir.registers[1])
+            self.lbl017['text'] = str(ir.registers[2])
+            self.lbl019['text'] = str(ir.registers[3])
 
-            except:
-                self.ERROR = '[MODBUS] can\'t receive data from A2'
-                self.lbl11['text'] = '[MODBUS] can\'t receive data from A2'
-                self.lbl11['fg'] = 'red'
+            self.lbl053['text'] = status[ir.registers[11]]
+            self.lbl055['text'] = status[ir.registers[12]]
+            self.lbl15['text'] = manage[ir.registers[13]]
+            self.show_work_status_A2()
+        except:
+            self.show_error_status_A2()
 
-        if self.ERROR == '':
-            try:
-                values.append(int(self.var11.get()))
-                values.append(int(self.var12.get()))
-                client.write_registers(address=0,values=values,unit=2)
-                values.clear()
-            except:
-                self.ERROR = '[MODBUS] can\'t send data to A1'
-                self.lbl21['text'] = '[MODBUS] can\'t send data to A1'
-                self.lbl21['fg'] = 'red'
+        try:
+            values.append(int(self.var11.get()))
+            values.append(int(self.var12.get()))
+            client.write_registers(address=0,values=values,unit=2)
+            values.clear()
+            self.show_work_status_A2()
+        except:
+            self.show_error_status_A2()
         client.close()
 
         self.lbl22['text'] = status[self.var01.get()]
